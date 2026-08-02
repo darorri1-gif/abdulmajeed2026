@@ -27,9 +27,12 @@ async function resolveEmail(identifier: string): Promise<string> {
   return data as string;
 }
 
-/** Fetch the current user's own profile (RLS restricts this to the caller). */
+/** Fetch the current user's own profile (filtered by the authenticated user id). */
 export async function fetchOwnProfile(): Promise<Profile | null> {
-  const { data, error } = await supabase.from('profiles').select('*').maybeSingle();
+  const { data: auth } = await supabase.auth.getUser();
+  const uid = auth.user?.id;
+  if (!uid) return null;
+  const { data, error } = await supabase.from('profiles').select('*').eq('id', uid).maybeSingle();
   if (error) throw error;
   return (data as Profile) ?? null;
 }
