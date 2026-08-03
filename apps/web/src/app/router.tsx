@@ -13,6 +13,7 @@ const RolesPage = lazy(() => import('@/modules/identity/pages/RolesPage').then((
 const MyProfilePage = lazy(() => import('@/modules/identity/pages/MyProfilePage').then((m) => ({ default: m.MyProfilePage })));
 const EvidencePage = lazy(() => import('@/modules/evidence/pages/EvidencePage').then((m) => ({ default: m.EvidencePage })));
 const EvidenceDetailPage = lazy(() => import('@/modules/evidence/pages/EvidenceDetailPage').then((m) => ({ default: m.EvidenceDetailPage })));
+const StandardEvidencePage = lazy(() => import('@/modules/evidence/pages/StandardEvidencePage').then((m) => ({ default: m.StandardEvidencePage })));
 const StandardsSettingsPage = lazy(() => import('@/modules/evidence/pages/StandardsSettingsPage').then((m) => ({ default: m.StandardsSettingsPage })));
 const FollowupPage = lazy(() => import('@/modules/followup/pages/FollowupPage').then((m) => ({ default: m.FollowupPage })));
 const StudentTimelinePage = lazy(() => import('@/modules/followup/pages/StudentTimelinePage').then((m) => ({ default: m.StudentTimelinePage })));
@@ -120,6 +121,14 @@ export function AppRouter() {
                 <RequirePermission perm="settings.manage">
                   <StandardsSettingsPage />
                 </RequirePermission>
+              }
+            />
+            <Route
+              path="/evidence/standard/:standardId"
+              element={
+                <RequireAnyPermission perms={['evidence.create', 'evidence.view_all', 'evidence.review']}>
+                  <StandardEvidencePage />
+                </RequireAnyPermission>
               }
             />
             <Route
