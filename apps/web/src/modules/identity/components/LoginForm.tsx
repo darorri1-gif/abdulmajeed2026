@@ -9,7 +9,7 @@ import { Alert } from '@/shared/ui/feedback';
 import { useLoginMutation } from '../hooks';
 
 const schema = z.object({
-  identifier: z.string().min(1, 'أدخل البريد الوزاري أو اسم المستخدم.'),
+  identifier: z.string().min(1, 'أدخل البريد الإلكتروني أو اسم المستخدم.'),
   password: z.string().min(1, 'أدخل كلمة المرور.'),
 });
 
@@ -28,7 +28,7 @@ export function LoginForm() {
       {mutation.isError && <Alert>{(mutation.error as Error).message}</Alert>}
 
       <div>
-        <Label htmlFor="identifier">البريد الوزاري أو اسم المستخدم</Label>
+        <Label htmlFor="identifier">البريد الإلكتروني أو اسم المستخدم</Label>
         <Input
           id="identifier"
           autoComplete="username"
