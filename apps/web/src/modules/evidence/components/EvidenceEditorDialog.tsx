@@ -24,10 +24,11 @@ interface Props {
   open: boolean;
   onOpenChange: (v: boolean) => void;
   evidence?: EvidenceDetail;
+  defaultStandardId?: string;
   onCreated?: (id: string) => void;
 }
 
-export function EvidenceEditorDialog({ open, onOpenChange, evidence, onCreated }: Props) {
+export function EvidenceEditorDialog({ open, onOpenChange, evidence, defaultStandardId, onCreated }: Props) {
   const isEdit = !!evidence;
   const { data: standards } = useStandards();
   const toast = useToast();
@@ -43,7 +44,7 @@ export function EvidenceEditorDialog({ open, onOpenChange, evidence, onCreated }
   } = useForm<FormValues>({
     resolver: zodResolver(schema),
     defaultValues: {
-      standard_id: evidence?.standard_id ?? '',
+      standard_id: evidence?.standard_id ?? defaultStandardId ?? '',
       indicator_id: evidence?.indicator_id ?? '',
       title: evidence?.title ?? '',
       description: evidence?.description ?? '',
