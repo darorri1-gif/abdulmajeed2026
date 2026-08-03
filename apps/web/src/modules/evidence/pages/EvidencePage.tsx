@@ -5,8 +5,8 @@ import { useCan } from '@/shared/hooks/usePermission';
 import { Button } from '@/shared/ui/Button';
 import { Input } from '@/shared/ui/Input';
 import { Select } from '@/shared/ui/Select';
+import { cn } from '@/shared/lib/utils';
 import { Alert, Spinner } from '@/shared/ui/feedback';
-import { StandardsBoard } from '../components/StandardsBoard';
 import { StatusBadge } from '../components/StatusBadge';
 import { EvidenceEditorDialog } from '../components/EvidenceEditorDialog';
 import { useEvidenceList, useStandards } from '../evidence.hooks';
@@ -23,7 +23,6 @@ export function EvidencePage() {
   const [status, setStatus] = useState('');
   const [searchInput, setSearchInput] = useState('');
   const [search, setSearch] = useState('');
-  const [activeStandard, setActiveStandard] = useState<string | null>(null);
   const [createOpen, setCreateOpen] = useState(false);
 
   useEffect(() => {
@@ -45,17 +44,12 @@ export function EvidencePage() {
     return map;
   }, [evidence]);
 
-  const visible = useMemo(
-    () => (activeStandard ? (evidence ?? []).filter((e) => e.standard_id === activeStandard) : evidence ?? []),
-    [evidence, activeStandard],
-  );
-
   return (
     <div className="space-y-5">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
           <h1 className="text-xl font-bold text-heading">الشواهد</h1>
-          <p className="text-sm text-muted">توثيق الشواهد وفق معايير تمام الأحد عشر.</p>
+          <p className="text-sm text-muted">اضغط على أي معيار لعرض شواهده وإضافة شاهد جديد.</p>
         </div>
         {canCreate && (
           <Button onClick={() => setCreateOpen(true)}>
@@ -66,13 +60,20 @@ export function EvidencePage() {
       </div>
 
       {standards && (
-        <StandardsBoard
-          standards={standards}
-          counts={counts}
-          total={evidence?.length ?? 0}
-          activeStandardId={activeStandard}
-          onSelect={setActiveStandard}
-        />
+        <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
+          {standards.map((s) => (
+            <Link
+              key={s.id}
+              to={`/evidence/standard/${s.id}`}
+              className={cn(
+                'rounded-2xl border border-border bg-surface p-4 text-start transition-colors hover:border-brand-green hover:bg-brand-green/5',
+              )}
+            >
+              <div className="text-2xl font-bold tabular-nums text-heading">{counts[s.id] ?? 0}</div>
+              <div className="mt-1 line-clamp-2 text-xs text-body">{s.name_ar}</div>
+            </Link>
+          ))}
+        </div>
       )}
 
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
@@ -107,13 +108,13 @@ export function EvidencePage() {
         </div>
       ) : isError ? (
         <Alert>تعذّر تحميل الشواهد.</Alert>
-      ) : !visible.length ? (
+      ) : !evidence?.length ? (
         <div className="rounded-2xl border border-dashed border-border bg-surface p-10 text-center text-sm text-muted">
           لا توجد شواهد مطابقة.
         </div>
       ) : (
         <div className="grid gap-3">
-          {visible.map((e) => (
+          {evidence.map((e) => (
             <Link
               key={e.id}
               to={`/evidence/${e.id}`}
