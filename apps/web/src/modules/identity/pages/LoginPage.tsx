@@ -6,9 +6,11 @@ export function LoginPage() {
     <div className="flex min-h-screen items-center justify-center bg-background px-4 py-10">
       <div className="w-full max-w-md">
         <div className="mb-8 text-center">
-          <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-brand-green text-2xl font-bold text-white">
-            أ
-          </div>
+          <img
+            src="/file_00000000091c0820aaccc0cbc01b1c6de.png"
+            alt="ثانوية الأمير عبدالمجيد الأولى"
+            className="mx-auto mb-4 h-28 w-auto object-contain"
+          />
           <h1 className="text-lg font-bold text-heading sm:text-xl">ثانوية الأمير عبدالمجيد الأولى</h1>
           <p className="mt-1 text-sm text-muted">مساحة العمل الداخلية للمنسوبين</p>
         </div>
