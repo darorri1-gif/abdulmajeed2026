@@ -7,7 +7,7 @@ export function LoginPage() {
       <div className="w-full max-w-md">
         <div className="mb-8 text-center">
           <img
-            src="/file_00000000091c0820aaccc0cbc01b1c6de.png"
+            src="/file_000000000910820aaccc0cbc01b1c6de.png"
             alt="ثانوية الأمير عبدالمجيد الأولى"
             className="mx-auto mb-4 h-28 w-auto object-contain"
           />
