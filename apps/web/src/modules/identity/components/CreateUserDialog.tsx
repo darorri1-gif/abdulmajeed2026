@@ -12,7 +12,7 @@ import { useCreateUser, useRoles } from '../users.hooks';
 
 const schema = z.object({
   full_name: z.string().min(3, 'أدخل الاسم الثلاثي.'),
-  email: z.string().email('أدخل بريدًا وزاريًا صحيحًا.'),
+  email: z.string().email('أدخل بريدًا إلكترونيًا صحيحًا.'),
   username: z.string().optional(),
   specialization: z.string().min(1, 'أدخل التخصص.'),
   password: z.string().min(8, 'كلمة المرور يجب ألا تقل عن 8 أحرف.'),
@@ -72,7 +72,7 @@ export function CreateUserDialog({ open, onOpenChange }: { open: boolean; onOpen
 
           <div className="grid gap-4 sm:grid-cols-2">
             <div>
-              <Label htmlFor="email">البريد الوزاري</Label>
+              <Label htmlFor="email">البريد الإلكتروني</Label>
               <Input id="email" type="email" dir="ltr" {...register('email')} aria-invalid={!!errors.email} />
               {errors.email && <p className="mt-1 text-xs text-danger">{errors.email.message}</p>}
             </div>
