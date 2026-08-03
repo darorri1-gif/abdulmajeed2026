@@ -39,24 +39,35 @@ export function Sidebar({ onNavigate }: { onNavigate?: () => void }) {
   const items = ITEMS.filter((i) => allowed(i, permissions));
 
   return (
-    <nav className="space-y-1">
-      {items.map(({ to, label, icon: Icon, end }) => (
-        <NavLink
-          key={to}
-          to={to}
-          end={end}
-          onClick={onNavigate}
-          className={({ isActive }) =>
-            cn(
-              'flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors',
-              isActive ? 'bg-brand-green/10 text-brand-green' : 'text-body hover:bg-background',
-            )
-          }
-        >
-          <Icon className="h-5 w-5 shrink-0" />
-          {label}
-        </NavLink>
-      ))}
-    </nav>
+    <div>
+      <div className="mb-4 flex flex-col items-center gap-2 border-b border-border px-2 pb-4 text-center">
+        <img
+          src="/file_000000000910820aaccc0cbc01b1c6de.png"
+          alt="ثانوية الأمير عبدالمجيد الأولى"
+          className="h-16 w-auto object-contain"
+        />
+        <span className="text-xs font-semibold leading-tight text-heading">ثانوية الأمير عبدالمجيد الأولى</span>
+      </div>
+
+      <nav className="space-y-1">
+        {items.map(({ to, label, icon: Icon, end }) => (
+          <NavLink
+            key={to}
+            to={to}
+            end={end}
+            onClick={onNavigate}
+            className={({ isActive }) =>
+              cn(
+                'flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors',
+                isActive ? 'bg-brand-green/10 text-brand-green' : 'text-body hover:bg-background',
+              )
+            }
+          >
+            <Icon className="h-5 w-5 shrink-0" />
+            {label}
+          </NavLink>
+        ))}
+      </nav>
+    </div>
   );
 }
