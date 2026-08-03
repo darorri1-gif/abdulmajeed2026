@@ -61,7 +61,7 @@ export function MyProfilePage() {
           </div>
 
           <div>
-            <Label htmlFor="email">البريد الوزاري (غير قابل للتعديل)</Label>
+            <Label htmlFor="email">البريد الالكتروني (غير قابل للتعديل)</Label>
             <Input id="email" dir="ltr" value={profile.email} readOnly disabled />
           </div>
 
